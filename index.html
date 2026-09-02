@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Quoxient helps leaders find where AI creates real value, redesign the work around it, and build the capability to lead what comes next.">
+  <title>Quoxient — Human-led. AI-enabled.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #071a2e;
+      --navy-2: #0a2540;
+      --navy-3: #102f4f;
+      --blue: #0878ff;
+      --blue-soft: #dcecff;
+      --cyan: #51d6ff;
+      --paper: #f5f7fa;
+      --paper-2: #edf1f5;
+      --white: #fff;
+      --ink: #0a1c2f;
+      --muted: #536579;
+      --line: #d7e0e8;
+      --green: #19a974;
+      --amber: #e99420;
+      --radius: 18px;
+      --shadow: 0 22px 60px rgba(7, 26, 46, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Manrope, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(7,26,46,.027) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7,26,46,.027) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    button, a { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; }
+    .mono, .eyebrow, .tag, .route-kicker { font-family: "IBM Plex Mono", monospace; }
+    .container { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      color: white;
+      background: rgba(7, 26, 46, .96);
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(16px);
+    }
+    .header-row {
+      min-height: 70px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 28px;
+      align-items: center;
+    }
+    .brand {
+      font: 700 21px/1 "Space Grotesk", sans-serif;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+    }
+    .brand span { color: var(--cyan); }
+    .site-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+    }
+    .site-tab {
+      position: relative;
+      padding: 12px 11px;
+      color: #aebed0;
+      font: 500 9px/1 "IBM Plex Mono", monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-radius: 7px;
+      transition: color .2s ease, background .2s ease;
+    }
+    .site-tab:hover { color: white; background: rgba(255,255,255,.06); }
+    .site-tab[aria-selected="true"] { color: white; background: rgba(8,120,255,.2); }
+    .site-tab[aria-selected="true"]::after {
+      content: "";
+      position: absolute;
+      left: 11px;
+      right: 11px;
+      bottom: 4px;
+      height: 2px;
+      background: var(--cyan);
+      border-radius: 3px;
+    }
+    .header-cta {
+      padding: 11px 16px;
+      color: white;
+      background: var(--blue);
+      border-radius: 8px;
+      font: 600 9px/1 "IBM Plex Mono", monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .header-cta:hover { background: #2290ff; }
+
+    .view { min-height: calc(100vh - 70px); animation: reveal .28s ease both; }
+    .view[hidden] { display: none !important; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: calc(100vh - 70px);
+      display: grid;
+      align-items: center;
+      color: white;
+      background:
+        radial-gradient(circle at 76% 35%, rgba(8,120,255,.35), transparent 28%),
+        linear-gradient(135deg, #06182b 0%, #092847 68%, #06182b 100%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 540px;
+      height: 540px;
+      right: -170px;
+      bottom: -250px;
+      border: 1px solid rgba(81,214,255,.2);
+      border-radius: 50%;
+      box-shadow: 0 0 0 90px rgba(81,214,255,.035), 0 0 0 180px rgba(81,214,255,.025);
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 72px;
+      align-items: center;
+      padding: 86px 0;
+    }
+    .eyebrow {
+      margin-bottom: 20px;
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .hero .eyebrow { color: var(--cyan); }
+    h1, h2, h3, h4, p { overflow-wrap: anywhere; }
+    h1 {
+      max-width: 830px;
+      margin: 0 0 25px;
+      font: 600 clamp(52px, 7.1vw, 104px)/.92 "Space Grotesk", sans-serif;
+      letter-spacing: -.066em;
+    }
+    .hero-lead {
+      max-width: 730px;
+      margin: 0 0 34px;
+      color: #cbd9e6;
+      font-size: clamp(17px, 1.8vw, 22px);
+      line-height: 1.58;
+    }
+    .hero-actions, .button-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 19px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--navy);
+      font: 600 9px/1 "IBM Plex Mono", monospace;
+      letter-spacing: .075em;
+      text-transform: uppercase;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: var(--blue); }
+    .btn-blue { color: white; background: var(--blue); border-color: var(--blue); }
+    .btn-ghost { color: white; background: transparent; border-color: rgba(255,255,255,.45); }
+    .btn-dark { color: white; background: var(--navy); border-color: var(--navy); }
+
+    .layer-card {
+      position: relative;
+      padding: 28px;
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.2);
+      backdrop-filter: blur(12px);
+    }
+    .layer-card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 19px;
+      color: #9fb3c8;
+      font-size: 9px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .layer-stack { display: grid; gap: 9px; }
+    .layer-row {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
+      padding: 14px;
+      background: rgba(5,19,34,.45);
+      border-left: 2px solid var(--blue);
+    }
+    .layer-row .n { color: var(--cyan); font-size: 9px; }
+    .layer-row strong { font-size: 13px; }
+    .layer-foot { margin-top: 20px; color: #c1d2e1; font-size: 12px; line-height: 1.65; }
+
+    .home-thesis { padding: 90px 0; background: white; }
+    .thesis-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
+    .thesis-grid h2, .page-hero h1 {
+      margin: 0;
+      font: 600 clamp(40px, 5.2vw, 72px)/.98 "Space Grotesk", sans-serif;
+      letter-spacing: -.055em;
+    }
+    .thesis-copy > p { margin: 0 0 30px; color: var(--muted); font-size: 18px; line-height: 1.72; }
+    .value-pair { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); }
+    .value-card { padding: 28px; background: var(--paper); }
+    .value-card + .value-card { border-left: 1px solid var(--line); }
+    .value-card span { color: var(--blue); font: 600 9px/1 "IBM Plex Mono", monospace; letter-spacing: .09em; text-transform: uppercase; }
+    .value-card h3 { margin: 18px 0 9px; font: 600 20px/1.25 "Space Grotesk", sans-serif; }
+    .value-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    .pathway { padding: 0 0 90px; background: white; }
+    .pathway-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .path-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 34px;
+      color: white;
+      background: var(--navy);
+      border-radius: var(--radius);
+    }
+    .path-card:nth-child(2) { background: var(--blue); }
+    .path-card::after {
+      content: "→";
+      position: absolute;
+      right: 28px;
+      bottom: 20px;
+      color: rgba(255,255,255,.18);
+      font: 600 84px/1 "Space Grotesk", sans-serif;
+      transition: transform .2s ease;
+    }
+    .path-card:hover::after { transform: translateX(6px); }
+    .path-card .route-kicker { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; opacity: .72; }
+    .path-card h3 { max-width: 480px; margin: 16px 0 12px; font: 600 31px/1.06 "Space Grotesk", sans-serif; letter-spacing: -.035em; }
+    .path-card p { max-width: 490px; margin: 0 0 34px; color: rgba(255,255,255,.76); font-size: 14px; line-height: 1.65; }
+    .path-card .route-link { position: relative; z-index: 1; font: 600 9px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+
+    .page-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 88px 0 64px;
+      color: white;
+      background: linear-gradient(135deg, var(--navy), var(--navy-3));
+    }
+    .page-hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -150px;
+      width: 430px;
+      height: 430px;
+      border: 70px solid rgba(8,120,255,.12);
+      border-radius: 50%;
+    }
+    .page-hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.15fr .65fr; gap: 70px; align-items: end; }
+    .page-hero h1 { max-width: 820px; }
+    .page-hero p { margin: 0; color: #c5d4e3; font-size: 16px; line-height: 1.72; }
+    .page-hero .eyebrow { color: var(--cyan); }
+
+    .section { padding: 82px 0; }
+    .section-white { background: white; }
+    .section-dark { color: white; background: var(--navy); }
+    .section-head { display: grid; grid-template-columns: 1fr .65fr; gap: 60px; align-items: end; margin-bottom: 38px; }
+    .section-head h2 { margin: 0; font: 600 clamp(34px, 4vw, 54px)/1 "Space Grotesk", sans-serif; letter-spacing: -.045em; }
+    .section-head > p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.72; }
+    .section-dark .section-head > p { color: #b8c9da; }
+
+    .offer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .offer-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 520px;
+      padding: 29px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 34px rgba(7,26,46,.055);
+    }
+    .offer-card.featured { color: white; background: var(--navy); border-color: var(--navy); transform: translateY(-8px); box-shadow: var(--shadow); }
+    .offer-top { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+    .tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 7px 9px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      border-radius: 999px;
+      font-size: 8px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .featured .tag { color: var(--cyan); background: rgba(81,214,255,.11); }
+    .price { text-align: right; font: 600 19px/1 "Space Grotesk", sans-serif; white-space: nowrap; }
+    .price small { display: block; margin-top: 7px; color: var(--muted); font: 500 8px/1.3 "IBM Plex Mono", monospace; letter-spacing: .05em; text-transform: uppercase; }
+    .featured .price small { color: #9fb5c9; }
+    .offer-card h2 { margin: 30px 0 7px; font: 600 27px/1.06 "Space Grotesk", sans-serif; letter-spacing: -.035em; }
+    .offer-card .timing { margin: 0 0 20px; color: var(--blue); font: 500 9px/1.4 "IBM Plex Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+    .featured .timing { color: var(--cyan); }
+    .offer-card > p { margin: 0 0 24px; color: var(--muted); font-size: 13px; line-height: 1.72; }
+    .featured > p { color: #c5d3e0; }
+    .leave-with { margin-top: auto; padding-top: 22px; border-top: 1px solid var(--line); }
+    .featured .leave-with { border-color: rgba(255,255,255,.15); }
+    .leave-with h3 { margin: 0 0 14px; font: 600 10px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .leave-with ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .leave-with li { position: relative; padding-left: 20px; color: var(--muted); font-size: 12px; line-height: 1.48; }
+    .featured .leave-with li { color: #c9d7e3; }
+    .leave-with li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    .capability-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 18px; background: var(--paper-2); border: 1px solid var(--line); }
+    .capability-strip article { padding: 25px; }
+    .capability-strip article + article { border-left: 1px solid var(--line); }
+    .capability-strip strong { display: block; margin-bottom: 7px; font: 600 14px/1.3 "Space Grotesk", sans-serif; }
+    .capability-strip span { color: var(--muted); font-size: 12px; line-height: 1.58; }
+
+    .aiq-subnav { display: inline-flex; gap: 5px; margin-bottom: 42px; padding: 5px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 10px; }
+    .aiq-subtab { min-height: 42px; padding: 0 18px; color: var(--muted); background: transparent; border: 0; border-radius: 7px; font: 600 9px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .aiq-subtab[aria-selected="true"] { color: white; background: var(--navy); }
+    .aiq-panel[hidden] { display: none !important; }
+    .dimension-band { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 22px; border: 1px solid var(--line); background: white; }
+    .dimension-card { padding: 23px 25px; }
+    .dimension-card + .dimension-card { border-left: 1px solid var(--line); }
+    .dimension-card span { color: var(--blue); font: 600 9px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .dimension-card h3 { margin: 15px 0 8px; font: 600 20px/1 "Space Grotesk", sans-serif; }
+    .dimension-card p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .quotient-map { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .quotient-button { min-height: 165px; padding: 22px; text-align: left; color: var(--ink); background: white; border: 1px solid var(--line); border-radius: 14px; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+    .quotient-button:hover { transform: translateY(-3px); border-color: #9bc8ff; box-shadow: 0 15px 30px rgba(7,26,46,.08); }
+    .quotient-button[aria-pressed="true"] { color: white; background: var(--navy); border-color: var(--navy); box-shadow: var(--shadow); }
+    .quotient-button .q-top { display: flex; justify-content: space-between; gap: 15px; align-items: start; }
+    .quotient-button .q-code { color: var(--blue); font: 700 25px/1 "Space Grotesk", sans-serif; }
+    .quotient-button[aria-pressed="true"] .q-code { color: var(--cyan); }
+    .quotient-button .q-dimension { color: var(--muted); font: 600 8px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .quotient-button[aria-pressed="true"] .q-dimension { color: #9db4c8; }
+    .quotient-button strong { display: block; margin: 28px 0 7px; font: 600 15px/1.2 "Space Grotesk", sans-serif; }
+    .quotient-button small { color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .quotient-button[aria-pressed="true"] small { color: #bcd0df; }
+    .quotient-detail { display: grid; grid-template-columns: .42fr 1fr; gap: 45px; margin-top: 16px; padding: 32px; color: white; background: linear-gradient(135deg, var(--navy), var(--navy-3)); border-radius: var(--radius); }
+    .quotient-detail-code { color: var(--cyan); font: 700 58px/1 "Space Grotesk", sans-serif; letter-spacing: -.05em; }
+    .quotient-detail-dimension { display: block; margin-top: 15px; color: #9eb5c8; font: 600 9px/1 "IBM Plex Mono", monospace; letter-spacing: .09em; text-transform: uppercase; }
+    .quotient-detail h3 { margin: 0 0 13px; font: 600 30px/1 "Space Grotesk", sans-serif; letter-spacing: -.035em; }
+    .quotient-detail p { margin: 0; color: #c5d4e0; font-size: 13px; line-height: 1.7; }
+    .quotient-detail .ai-connection { margin-top: 19px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.15); }
+    .quotient-detail .ai-connection strong { display: block; margin-bottom: 7px; color: var(--cyan); font: 600 9px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .aiq-overview { display: grid; grid-template-columns: .82fr 1.18fr; gap: 20px; align-items: stretch; }
+    .aiq-assessment {
+      display: flex;
+      flex-direction: column;
+      min-height: 390px;
+      padding: 32px;
+      color: white;
+      background: linear-gradient(145deg, var(--navy), var(--navy-3));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .aiq-assessment .tag { color: var(--cyan); background: rgba(81,214,255,.11); }
+    .aiq-assessment h2 { margin: 30px 0 10px; font: 600 34px/1 "Space Grotesk", sans-serif; letter-spacing: -.04em; }
+    .aiq-time { color: var(--cyan); font: 600 10px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .aiq-assessment p { margin: 24px 0; color: #c3d3df; font-size: 14px; line-height: 1.72; }
+    .aiq-assessment ul { display: grid; gap: 11px; margin: auto 0 0; padding: 22px 0 0; border-top: 1px solid rgba(255,255,255,.15); list-style: none; }
+    .aiq-assessment li { position: relative; padding-left: 19px; color: #d7e3ec; font-size: 12px; line-height: 1.5; }
+    .aiq-assessment li::before { content: "→"; position: absolute; left: 0; color: var(--cyan); }
+    .assessment-steps { display: grid; grid-template-columns: 1fr; border: 1px solid var(--line); background: white; border-radius: var(--radius); overflow: hidden; }
+    .assessment-step { display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; padding: 28px; }
+    .assessment-step + .assessment-step { border-top: 1px solid var(--line); }
+    .assessment-step .n { display: grid; place-items: center; width: 42px; height: 42px; color: var(--blue); background: var(--blue-soft); border-radius: 50%; font: 700 10px/1 "IBM Plex Mono", monospace; }
+    .assessment-step h3 { margin: 2px 0 8px; font: 600 20px/1.1 "Space Grotesk", sans-serif; }
+    .assessment-step p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+
+    .product-shelf { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .product-card { grid-column: span 6; display: flex; flex-direction: column; min-height: 410px; padding: 31px; background: white; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 12px 34px rgba(7,26,46,.055); }
+    .product-card.featured { grid-column: span 12; min-height: 360px; display: grid; grid-template-columns: .72fr 1.28fr; gap: 52px; color: white; background: linear-gradient(135deg, var(--navy), var(--navy-3)); border-color: var(--navy); box-shadow: var(--shadow); }
+    .product-card-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: start; }
+    .product-status { color: var(--blue); font: 600 8px/1.4 "IBM Plex Mono", monospace; letter-spacing: .075em; text-transform: uppercase; }
+    .product-card.featured .product-status { color: var(--cyan); }
+    .product-card h3 { margin: 31px 0 14px; font: 600 31px/1.03 "Space Grotesk", sans-serif; letter-spacing: -.04em; }
+    .product-card.featured h3 { margin-top: 25px; font-size: clamp(34px, 4vw, 52px); }
+    .product-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.72; }
+    .product-card.featured p { color: #c5d4e0; font-size: 14px; }
+    .product-card .product-thesis { margin-bottom: 18px; color: var(--ink); font: 600 16px/1.45 "Space Grotesk", sans-serif; }
+    .product-card.featured .product-thesis { color: white; font-size: 18px; }
+    .product-capabilities { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 25px; }
+    .product-capabilities span { padding: 7px 9px; color: var(--navy); background: var(--paper-2); border-radius: 999px; font: 500 8px/1 "IBM Plex Mono", monospace; letter-spacing: .04em; }
+    .product-card.featured .product-capabilities span { color: #d8e7f1; background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.12); }
+    .product-link { width: fit-content; margin-top: auto; padding-top: 30px; color: var(--blue); font: 600 9px/1 "IBM Plex Mono", monospace; letter-spacing: .075em; text-transform: uppercase; }
+    .product-card.featured .product-link { color: var(--cyan); }
+    .product-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .product-note { margin-top: 18px; padding: 19px 22px; color: var(--muted); background: var(--paper-2); border: 1px solid var(--line); border-radius: 10px; font-size: 11px; line-height: 1.65; }
+
+    .org-stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); background: white; }
+    .stage { position: relative; min-height: 450px; padding: 26px; }
+    .stage + .stage { border-left: 1px solid var(--line); }
+    .stage.featured { color: white; background: var(--navy); }
+    .stage .step { color: var(--blue); font: 600 9px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .stage.featured .step { color: var(--cyan); }
+    .stage h2 { margin: 25px 0 10px; font: 600 23px/1.08 "Space Grotesk", sans-serif; letter-spacing: -.03em; }
+    .stage > p { margin: 0 0 22px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .stage.featured > p, .stage.featured li { color: #c6d5e1; }
+    .stage .price { margin: 19px 0 26px; text-align: left; }
+    .stage ul { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+    .stage li { position: relative; padding-left: 15px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .stage li::before { content: "—"; position: absolute; left: 0; color: var(--blue); }
+
+    .session-guarantee { margin-top: 18px; padding: 20px 23px; color: var(--navy); background: var(--blue-soft); border: 1px solid #bfdcff; border-left: 3px solid var(--blue); border-radius: 10px; font-size: 12px; line-height: 1.65; }
+    .session-guarantee strong { font-family: "Space Grotesk", sans-serif; font-size: 14px; }
+
+    .commitment {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: .72fr 1.28fr;
+      gap: 0;
+      background: var(--navy);
+      color: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .commitment-title { padding: 34px; background: var(--blue); }
+    .commitment-title h2 { margin: 0; font: 600 31px/1.05 "Space Grotesk", sans-serif; letter-spacing: -.04em; }
+    .commitment-copy { padding: 34px; }
+    .commitment-copy p { margin: 0 0 18px; color: #c5d3e0; font-size: 14px; line-height: 1.7; }
+    .commitment-points { display: flex; flex-wrap: wrap; gap: 8px; }
+    .commitment-points span { padding: 7px 9px; border: 1px solid rgba(255,255,255,.19); border-radius: 999px; color: #d6e1eb; font: 500 8px/1 "IBM Plex Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+
+    .blueprint-flow { display: grid; grid-template-columns: repeat(5, 1fr); background: white; border: 1px solid var(--line); }
+    .flow-step { position: relative; min-height: 210px; padding: 25px; }
+    .flow-step + .flow-step { border-left: 1px solid var(--line); }
+    .flow-step .n { color: var(--blue); font: 600 10px/1 "IBM Plex Mono", monospace; }
+    .flow-step h3 { margin: 28px 0 9px; font: 600 17px/1.15 "Space Grotesk", sans-serif; }
+    .flow-step p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+
+    .portfolio-shell { display: grid; grid-template-columns: 1fr .72fr; gap: 20px; align-items: stretch; }
+    .matrix-card { padding: 30px; color: white; background: var(--navy); border-radius: var(--radius); }
+    .matrix-head { display: flex; justify-content: space-between; gap: 20px; align-items: start; margin-bottom: 26px; }
+    .matrix-head h2 { margin: 0; font: 600 27px/1.05 "Space Grotesk", sans-serif; letter-spacing: -.03em; }
+    .sample-label { flex: 0 0 auto; display: grid; justify-items: center; gap: 3px; color: #a9bed0; font: 500 8px/1.2 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .sample-label i { color: var(--cyan); font-style: normal; }
+    .sample-label .nowrap { white-space: nowrap; }
+    .matrix-grid {
+      position: relative;
+      min-height: 370px;
+      margin: 0 0 26px 40px;
+      border-left: 1px solid rgba(255,255,255,.3);
+      border-bottom: 1px solid rgba(255,255,255,.3);
+      background:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 25% 25%;
+    }
+    .axis-y { position: absolute; left: -38px; top: 50%; transform: rotate(-90deg) translateX(-50%); transform-origin: left top; color: #91a9bd; font: 500 8px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .axis-x { position: absolute; right: 0; bottom: -23px; color: #91a9bd; font: 500 8px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .bubble { position: absolute; display: grid; place-items: center; border-radius: 50%; color: white; text-align: center; font: 600 8px/1.25 "IBM Plex Mono", monospace; box-shadow: 0 12px 25px rgba(0,0,0,.2); }
+    .b1 { width: 78px; height: 78px; left: 65%; top: 11%; background: var(--blue); }
+    .b2 { width: 58px; height: 58px; left: 78%; top: 53%; background: var(--green); }
+    .b3 { width: 66px; height: 66px; left: 23%; top: 23%; background: var(--amber); }
+    .b4 { width: 50px; height: 50px; left: 42%; top: 68%; background: #7657e5; }
+    .matrix-note { color: #a9bdcf; font-size: 11px; line-height: 1.55; }
+    .score-card { padding: 30px; background: white; border: 1px solid var(--line); border-radius: var(--radius); }
+    .score-card h2 { margin: 0 0 20px; font: 600 27px/1.05 "Space Grotesk", sans-serif; letter-spacing: -.035em; }
+    .score-list { display: grid; gap: 10px; }
+    .score-row { display: grid; grid-template-columns: 29px 1fr auto; gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+    .score-row:last-child { border-bottom: 0; }
+    .score-row .n { color: var(--blue); font: 600 9px/1 "IBM Plex Mono", monospace; }
+    .score-row strong { font-size: 12px; }
+    .score-row span:last-child { color: var(--muted); font: 500 8px/1 "IBM Plex Mono", monospace; letter-spacing: .05em; text-transform: uppercase; }
+
+    .deliverable-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .deliverable { padding: 25px; background: white; border: 1px solid var(--line); border-radius: 12px; }
+    .deliverable .n { color: var(--blue); font: 600 9px/1 "IBM Plex Mono", monospace; }
+    .deliverable h3 { margin: 25px 0 9px; font: 600 18px/1.15 "Space Grotesk", sans-serif; }
+    .deliverable p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+
+    .case-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .case-card { position: relative; overflow: hidden; padding: 31px; background: white; border: 1px solid var(--line); border-radius: var(--radius); }
+    .case-card.primary { grid-column: span 12; display: grid; grid-template-columns: .72fr 1.28fr; gap: 42px; color: white; background: var(--navy); border-color: var(--navy); }
+    .case-card.half { grid-column: span 6; }
+    .case-card .tag { margin-bottom: 23px; }
+    .case-card.primary .tag { color: var(--cyan); background: rgba(81,214,255,.11); }
+    .case-card h2 { margin: 0 0 13px; font: 600 30px/1.04 "Space Grotesk", sans-serif; letter-spacing: -.04em; }
+    .case-card > p, .case-intro p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .case-card.primary .case-intro p { color: #c3d2df; }
+    .case-beats { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid rgba(255,255,255,.16); }
+    .case-beat { padding: 22px; }
+    .case-beat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.16); }
+    .case-beat:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.16); }
+    .case-beat h3 { margin: 0 0 9px; color: var(--cyan); font: 600 9px/1.3 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .case-beat p { margin: 0; color: #b9cad8; font-size: 11px; line-height: 1.58; }
+    .mini-beats { display: grid; gap: 14px; margin-top: 25px; }
+    .mini-beat { padding-top: 15px; border-top: 1px solid var(--line); }
+    .mini-beat strong { display: block; margin-bottom: 7px; color: var(--blue); font: 600 9px/1 "IBM Plex Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+    .mini-beat p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.58; }
+
+    .about-story { display: grid; grid-template-columns: .78fr 1.22fr; gap: 70px; align-items: start; }
+    .about-story h2 { margin: 0; font: 600 clamp(36px, 4vw, 54px)/1 "Space Grotesk", sans-serif; letter-spacing: -.05em; }
+    .about-copy p { margin: 0 0 21px; color: var(--muted); font-size: 16px; line-height: 1.74; }
+    .principles { display: grid; grid-template-columns: repeat(3,1fr); margin-top: 32px; border: 1px solid var(--line); }
+    .principle { padding: 22px; }
+    .principle + .principle { border-left: 1px solid var(--line); }
+    .principle strong { display: block; margin-bottom: 7px; font: 600 14px/1.2 "Space Grotesk", sans-serif; }
+    .principle span { color: var(--muted); font-size: 11px; line-height: 1.55; }
+
+    .team-grid { display: grid; gap: 18px; }
+    .profile { display: grid; grid-template-columns: 290px 1fr; overflow: hidden; background: white; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 12px 35px rgba(7,26,46,.055); }
+    .profile-head { min-height: 390px; display: flex; flex-direction: column; justify-content: end; padding: 30px; color: white; background: linear-gradient(150deg, var(--navy), var(--navy-3)); }
+    .profile:nth-child(2) .profile-head { background: linear-gradient(150deg, #07336a, var(--blue)); }
+    .profile:nth-child(3) .profile-head { background: linear-gradient(150deg, #102f4f, #127e80); }
+    .profile-initials { margin-bottom: auto; color: rgba(255,255,255,.16); font: 700 62px/1 "Space Grotesk", sans-serif; letter-spacing: -.06em; }
+    .profile h2 { margin: 0 0 7px; font: 600 27px/1 "Space Grotesk", sans-serif; letter-spacing: -.035em; }
+    .profile-title { color: #c6d7e5; font: 500 8px/1.5 "IBM Plex Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+    .profile-body { display: flex; flex-direction: column; padding: 30px 32px; }
+    .profile-bio { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .quoxient-role { margin: 0 0 25px; padding: 17px 19px; color: #dcecff; background: var(--navy); border-left: 3px solid var(--cyan); border-radius: 0 9px 9px 0; font-size: 13px; line-height: 1.67; }
+    .quoxient-role strong { color: white; font-family: "Space Grotesk", sans-serif; font-size: 15px; }
+    .expertise-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 24px; }
+    .expertise-block { padding-top: 18px; border-top: 1px solid var(--line); }
+    .expertise-block h3 { margin: 0 0 13px; color: var(--navy); font: 600 9px/1.3 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .expertise-block ul { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+    .expertise-block li { position: relative; padding-left: 16px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .expertise-block li::before { content: "→"; position: absolute; left: 0; color: var(--blue); }
+    .profile-footer { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-top: auto; padding-top: 19px; border-top: 1px solid var(--line); }
+    .profile-badges { display: flex; flex-wrap: wrap; gap: 7px; }
+    .profile-badges span { padding: 7px 8px; color: var(--navy); background: var(--paper-2); border-radius: 999px; font: 500 8px/1 "IBM Plex Mono", monospace; letter-spacing: .04em; white-space: nowrap; }
+    .linkedin-link { flex: 0 0 auto; color: var(--blue); font: 600 8px/1 "IBM Plex Mono", monospace; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; }
+    .linkedin-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    .three-tests { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgba(255,255,255,.16); }
+    .test { min-height: 210px; padding: 27px; }
+    .test + .test { border-left: 1px solid rgba(255,255,255,.16); }
+    .test .n { color: var(--cyan); font: 600 9px/1 "IBM Plex Mono", monospace; }
+    .test h3 { margin: 28px 0 10px; font: 600 20px/1.12 "Space Grotesk", sans-serif; }
+    .test p { margin: 0; color: #afc1d0; font-size: 12px; line-height: 1.58; }
+
+    .page-cta { padding: 70px 0; color: white; background: var(--blue); }
+    .cta-inner { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+    .page-cta h2 { margin: 0 0 9px; font: 600 clamp(32px,4vw,52px)/1 "Space Grotesk", sans-serif; letter-spacing: -.045em; }
+    .page-cta p { margin: 0; color: rgba(255,255,255,.82); font-size: 14px; line-height: 1.6; }
+
+    footer { padding: 31px 0; color: #aebfd0; background: #041321; }
+    .footer-row { display: flex; justify-content: space-between; gap: 30px; align-items: center; }
+    .footer-brand { color: white; font: 700 17px/1 "Space Grotesk", sans-serif; text-transform: uppercase; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; font: 500 8px/1 "IBM Plex Mono", monospace; letter-spacing: .07em; text-transform: uppercase; }
+    .footer-links a:hover { color: white; }
+
+    @media (max-width: 1050px) {
+      .header-row { grid-template-columns: auto 1fr; padding-top: 14px; }
+      .site-tabs { grid-column: 1 / -1; grid-row: 2; order: 3; justify-content: start; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+      .site-tabs::-webkit-scrollbar { display: none; }
+      .header-cta { justify-self: end; }
+      .hero { min-height: auto; }
+      .hero-grid, .page-hero-inner, .thesis-grid, .about-story { grid-template-columns: 1fr; gap: 45px; }
+      .layer-card { max-width: 620px; }
+      .org-stages { grid-template-columns: 1fr 1fr; }
+      .stage:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+      .stage:nth-child(4) { border-top: 1px solid var(--line); }
+      .blueprint-flow { grid-template-columns: repeat(3, 1fr); }
+      .flow-step:nth-child(4) { border-left: 0; }
+      .flow-step:nth-child(n+4) { border-top: 1px solid var(--line); }
+      .portfolio-shell, .aiq-overview { grid-template-columns: 1fr; }
+      .deliverable-grid { grid-template-columns: 1fr 1fr; }
+      .quotient-map { grid-template-columns: repeat(2, 1fr); }
+      .aiq-assessment { min-height: 330px; }
+      .product-card.featured { grid-template-columns: 1fr; gap: 24px; }
+      .profile { grid-template-columns: 240px 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .container { width: min(100% - 30px, 1180px); }
+      .header-row { gap: 12px; }
+      .brand { font-size: 18px; }
+      .header-cta { padding: 10px 11px; font-size: 8px; }
+      .site-tab { padding-inline: 9px; }
+      .hero-grid { padding: 68px 0; }
+      h1 { font-size: clamp(49px, 16vw, 73px); }
+      .hero-actions .btn { width: 100%; }
+      .home-thesis, .section { padding: 65px 0; }
+      .value-pair, .pathway-grid, .offer-grid, .capability-strip, .commitment, .case-card.primary, .about-story, .principles, .three-tests, .cta-inner { grid-template-columns: 1fr; }
+      .value-card + .value-card, .capability-strip article + article, .principle + .principle, .test + .test { border-left: 0; border-top: 1px solid var(--line); }
+      .test + .test { border-color: rgba(255,255,255,.16); }
+      .path-card { min-height: 280px; }
+      .page-hero { padding: 67px 0 50px; }
+      .section-head { grid-template-columns: 1fr; gap: 18px; }
+      .offer-card.featured { transform: none; }
+      .org-stages, .blueprint-flow, .deliverable-grid { grid-template-columns: 1fr; }
+      .stage + .stage, .stage:nth-child(3), .flow-step + .flow-step, .flow-step:nth-child(4) { border-left: 0; border-top: 1px solid var(--line); }
+      .commitment-title, .commitment-copy { padding: 28px; }
+      .case-card.half { grid-column: span 12; }
+      .case-beats { grid-template-columns: 1fr; }
+      .case-beat:nth-child(odd) { border-right: 0; }
+      .case-beat + .case-beat { border-top: 1px solid rgba(255,255,255,.16); }
+      .case-beat:nth-child(-n+2) { border-bottom: 0; }
+      .aiq-subnav { width: 100%; }
+      .aiq-subtab { flex: 1; padding-inline: 10px; }
+      .dimension-band { grid-template-columns: 1fr; }
+      .dimension-card + .dimension-card { border-left: 0; border-top: 1px solid var(--line); }
+      .quotient-button { min-height: 155px; padding: 18px; }
+      .quotient-button strong { margin-top: 23px; }
+      .quotient-detail { grid-template-columns: 1fr; gap: 24px; padding: 27px 23px; }
+      .quotient-detail-code { font-size: 48px; }
+      .product-card, .product-card.featured { grid-column: span 12; min-height: auto; padding: 27px 23px; }
+      .product-card h3 { font-size: 27px; }
+      .product-card.featured h3 { font-size: 34px; }
+      .product-link { margin-top: 8px; }
+      .profile { display: block; }
+      .profile-head { min-height: 245px; }
+      .profile-body { padding: 26px 23px; }
+      .expertise-columns { grid-template-columns: 1fr; gap: 21px; }
+      .profile-footer { align-items: start; flex-direction: column; }
+      .footer-row { align-items: start; flex-direction: column; }
+      .footer-links { line-height: 1.8; }
+      .matrix-grid { min-height: 310px; }
+      .bubble { transform: scale(.85); }
+      .b1 { left: 55%; }
+      .b2 { left: 73%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="#home" data-route="home" aria-label="Quoxient home">Quo<span>x</span>ient</a>
+      <nav class="site-tabs" role="tablist" aria-label="Site pages">
+        <a class="site-tab" href="#home" role="tab" data-route="home" aria-controls="view-home">Home</a>
+        <a class="site-tab" href="#individuals" role="tab" data-route="individuals" aria-controls="view-individuals">Individuals</a>
+        <a class="site-tab" href="#organizations" role="tab" data-route="organizations" aria-controls="view-organizations">Organizations</a>
+        <a class="site-tab" href="#blueprint" role="tab" data-route="blueprint" aria-controls="view-blueprint">Blueprint</a>
+        <a class="site-tab" href="#aiq" role="tab" data-route="aiq" aria-controls="view-aiq">AIQ + Products</a>
+        <a class="site-tab" href="#cases" role="tab" data-route="cases" aria-controls="view-cases">Case Studies</a>
+        <a class="site-tab" href="#about" role="tab" data-route="about" aria-controls="view-about">About</a>
+      </nav>
+      <a class="header-cta" href="#organizations" data-route="organizations">Start here</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="view" id="view-home" role="tabpanel" data-view="home">
+      <div class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">Human-led. AI-enabled solutions for real businesses.</div>
+            <h1>You're Not Behind.<br>The Rules Just Changed.</h1>
+            <p class="hero-lead">AI can be used almost everywhere. The real leadership question is where it will create durable value—and how it changes what customers expect from you.</p>
+            <div class="hero-actions">
+              <a class="btn btn-blue" href="#organizations" data-route="organizations">Explore for organizations</a>
+              <a class="btn btn-ghost" href="#individuals" data-route="individuals">Explore for individuals</a>
+            </div>
+          </div>
+          <aside class="layer-card" aria-label="AI as a business layer">
+            <div class="layer-card-head mono"><span>AI / business layer</span><span>Not a plug-in</span></div>
+            <div class="layer-stack">
+              <div class="layer-row"><span class="n mono">01</span><strong>Customers &amp; markets</strong></div>
+              <div class="layer-row"><span class="n mono">02</span><strong>Decisions &amp; knowledge</strong></div>
+              <div class="layer-row"><span class="n mono">03</span><strong>Workflows &amp; execution</strong></div>
+              <div class="layer-row"><span class="n mono">04</span><strong>People &amp; adoption</strong></div>
+              <div class="layer-row"><span class="n mono">05</span><strong>Technology &amp; governance</strong></div>
+            </div>
+            <div class="layer-foot">AI amplifies how your business works. It also raises the standard for how customers discover, evaluate, and engage with you.</div>
+          </aside>
+        </div>
+      </div>
+
+      <section class="home-thesis">
+        <div class="container thesis-grid">
+          <div>
+            <div class="eyebrow">Why AI / why now</div>
+            <h2>AI changes what your business must become.</h2>
+          </div>
+          <div class="thesis-copy">
+            <p>The problem is rarely access to the technology. It is understanding how AI works well enough to use it across functions—then deciding which workflows, operating systems, and decisions deserve to change.</p>
+            <div class="value-pair">
+              <article class="value-card">
+                <span>Inside the business</span>
+                <h3>Amplify the work that creates value.</h3>
+                <p>Hold more context, connect more signals, test more pathways, compress repeatable work, and make better decisions without surrendering human judgment.</p>
+              </article>
+              <article class="value-card">
+                <span>At the market edge</span>
+                <h3>Redesign the value customers receive.</h3>
+                <p>As customers gain new intelligence and capability, they arrive better informed and expect a different kind of experience, expertise, and partnership.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pathway">
+        <div class="container pathway-grid">
+          <a class="path-card" href="#individuals" data-route="individuals">
+            <div><span class="route-kicker">For individuals</span><h3>Build the judgment and workflows to lead with AI.</h3><p>Clarify how you think, connect, communicate, and execute—then leave with a practical personal operating model.</p></div>
+            <span class="route-link">See the individual path</span>
+          </a>
+          <a class="path-card" href="#organizations" data-route="organizations">
+            <div><span class="route-kicker">For organizations</span><h3>Find the opportunities worth organizational investment.</h3><p>Map the work, surface the opportunity field, rank the portfolio, and define the first move your organization can execute.</p></div>
+            <span class="route-link">See the organization path</span>
+          </a>
+        </div>
+      </section>
+    </section>
+
+    <section class="view" id="view-individuals" role="tabpanel" data-view="individuals" hidden>
+      <header class="page-hero">
+        <div class="container page-hero-inner">
+          <div><div class="eyebrow">For individuals / AI-enabled leadership</div><h1>Lead with AI across functions—not just inside one tool.</h1></div>
+          <p>For executives, founders, and operators who want AI to extend their thinking, preserve their voice, expose blind spots, and turn real work into repeatable capability.</p>
+        </div>
+      </header>
+      <section class="section section-white">
+        <div class="container">
+          <div class="section-head">
+            <div><div class="eyebrow">Choose your depth</div><h2>Every engagement ends with something you can use.</h2></div>
+            <p>The goal is not temporary inspiration or tool fluency. It is greater self-sufficiency: practical intelligence, workflows, and assets that stay with you.</p>
+          </div>
+          <div class="offer-grid">
+            <article class="offer-card">
+              <div class="offer-top"><span class="tag">Clarity</span><div class="price">$500<small>One 90-minute session</small></div></div>
+              <h2>AI Strategy Session</h2>
+              <div class="timing">Diagnose · prioritize · apply</div>
+              <p>Bring one meaningful part of your real work. We identify where AI can create the most leverage, then turn the opportunity into a workflow you understand and can use.</p>
+              <div class="leave-with"><h3>Leave with</h3><ul><li>A short AIQ assessment</li><li>Your highest-value personal AI opportunity</li><li>One usable workflow and prompt set</li><li>Your session recording and action summary</li><li>Continued AIQ platform access</li></ul></div>
+            </article>
+            <article class="offer-card featured">
+              <div class="offer-top"><span class="tag">Most popular</span><div class="price">$2,500<small>4 sessions / 30 days</small></div></div>
+              <h2>AI Accelerator</h2>
+              <div class="timing">See the pattern · build the system</div>
+              <p>We analyze your conversations, decisions, priorities, and recurring work, then build a personalized AI operating environment around how you actually lead.</p>
+              <div class="leave-with"><h3>Leave with</h3><ul><li>Transcript Intelligence analysis</li><li>Your Quoxient7 Intelligence Report</li><li>A personalized AI operating environment</li><li>Role-specific workflows and prompts</li><li>An Authentic Voice Guide</li><li>A 90-day implementation roadmap</li><li>Continued AIQ platform access</li></ul></div>
+            </article>
+            <article class="offer-card">
+              <div class="offer-top"><span class="tag">Evolution</span><div class="price">$1,500/mo<small>3-month minimum</small></div></div>
+              <h2>AI Monthly Advisory</h2>
+              <div class="timing">Measure · refine · expand</div>
+              <p>Continue strengthening the workflows, decisions, communication, and cross-functional applications that matter as your role and work evolve.</p>
+              <div class="leave-with"><h3>Continue with</h3><ul><li>Everything from the Accelerator</li><li>Monthly strategy sessions</li><li>Direct WhatsApp access</li><li>Ongoing transcript intelligence</li><li>Workflow refinement as your work evolves</li></ul></div>
+            </article>
+          </div>
+          <div class="capability-strip">
+            <article><strong>Think with more context.</strong><span>Bring relevant information, prior decisions, and competing signals into the work without losing the thread.</span></article>
+            <article><strong>Work in your real voice.</strong><span>Build systems that preserve how you reason and communicate instead of producing generic AI output.</span></article>
+            <article><strong>Operate without dependency.</strong><span>Leave with workflows you understand, can run, and can continue improving after the engagement.</span></article>
+          </div>
+        </div>
+      </section>
+      <section class="page-cta"><div class="container cta-inner"><div><h2>Start with your real work.</h2><p>One focused session is enough to identify where AI can begin amplifying how you already lead.</p></div><a class="btn" href="https://quoxient.vercel.app/contact">Book an AI strategy session</a></div></section>
+    </section>
+
+    <section class="view" id="view-organizations" role="tabpanel" data-view="organizations" hidden>
+      <header class="page-hero">
+        <div class="container page-hero-inner">
+          <div><div class="eyebrow">For organizations / strategy to execution</div><h1>Find where AI creates value—then choose what happens first.</h1></div>
+          <p>Quoxient connects business strategy, frontline work, customer expectations, adoption, and architecture so AI investment becomes a ranked decision—not a pile of disconnected tools.</p>
+        </div>
+      </header>
+      <section class="section section-white">
+        <div class="container">
+          <div class="section-head">
+            <div><div class="eyebrow">Engagement path</div><h2>From first conversation to committed change.</h2></div>
+            <p>Start at the level your organization needs. Each stage produces a concrete decision artifact and a clear next move.</p>
+          </div>
+          <div class="org-stages">
+            <article class="stage">
+              <span class="step">01 · Paid discovery sequence</span><h2>AI Opportunity Sessions</h2><p>Two to three substantive working sessions that get beneath the tool requests and into the business, work, and value at stake.</p><div class="price">$1K–$1.5K<small>2–3 sessions · $500 each</small></div><ul><li>Business and value framing</li><li>Key workflow and stakeholder signals</li><li>Concise Opportunity Guide</li><li>Recommendation and proposed Blueprint scope</li></ul>
+            </article>
+            <article class="stage featured">
+              <span class="step">02 · Focused diagnosis</span><h2>Focused AI Blueprint</h2><p>One function or priority problem translated into an evidence-based investment sequence.</p><div class="price">From $10K<small>Function or priority scope</small></div><ul><li>Workflow and decision map</li><li>Ranked opportunity portfolio</li><li>First-use-case specification</li><li>90-day activation sequence</li></ul>
+            </article>
+            <article class="stage">
+              <span class="step">03 · Expanded scope</span><h2>Enterprise Blueprint</h2><p>Multiple functions, systems, stakeholders, and constraints brought into a shared decision architecture.</p><div class="price">$20K–$35K+<small>Scope-dependent</small></div><ul><li>Cross-functional opportunity field</li><li>Value and feasibility scoring</li><li>Governance and adoption design</li><li>Leadership investment roadmap</li></ul>
+            </article>
+            <article class="stage">
+              <span class="step">04 · Additional scope</span><h2>Implementation &amp; Enablement</h2><p>Build, configure, train, integrate, or govern selected solutions through a separately defined engagement.</p><div class="price">Custom scope<small>Designed with the client</small></div><ul><li>Workflow and system build</li><li>Team enablement</li><li>Controls and measurement</li><li>Capability transfer</li></ul>
+            </article>
+          </div>
+          <div class="session-guarantee"><strong>First-session guarantee.</strong> Each session runs 60–90 minutes. If, after the first working session, you do not see enough value to continue, tell us and we will refund that session. Most opportunity engagements require two to three sessions before Quoxient can responsibly recommend and scope a Focused AI Blueprint.</div>
+          <div class="commitment">
+            <div class="commitment-title"><div class="eyebrow" style="color:white;opacity:.7">Implementation is shared work</div><h2>Not a plug-in. A two-way commitment.</h2></div>
+            <div class="commitment-copy"><p>Implementation succeeds when the organization provides the owners, access, feedback, decisions, and adoption effort required to redesign real work. Quoxient brings the architecture, build discipline, enablement, and governance; the client commits the people and operating attention that make the change durable.</p><div class="commitment-points"><span>Executive owner</span><span>Workflow access</span><span>Fast feedback</span><span>Team adoption</span><span>Shared measures</span></div></div>
+          </div>
+        </div>
+      </section>
+      <section class="section section-dark">
+        <div class="container section-head" style="margin-bottom:0"><div><div class="eyebrow" style="color:var(--cyan)">The Quoxient distinction</div><h2>Real transformation redesigns the work that drives P&amp;L.</h2></div><p>More licenses, tool demonstrations, disconnected KPIs, and lecture-based training do not create an operating advantage. Workflows, decisions, roles, customer value, and adoption have to move together.</p></div>
+      </section>
+      <section class="page-cta"><div class="container cta-inner"><div><h2>Bring us the business, not a tool list.</h2><p>We will listen for how the organization works, what it is trying to achieve, and where AI can create the most defensible value.</p></div><a class="btn" href="https://quoxient.vercel.app/contact">Start the conversation</a></div></section>
+    </section>
+
+    <section class="view" id="view-blueprint" role="tabpanel" data-view="blueprint" hidden>
+      <header class="page-hero">
+        <div class="container page-hero-inner">
+          <div><div class="eyebrow">The AI Blueprint</div><h1>A decision system for the opportunities hiding across your business.</h1></div>
+          <p>A Blueprint can surface dozens of possible uses for AI. Its value is not the size of the list. Its value is making the sequence defensible.</p>
+        </div>
+      </header>
+      <section class="section section-white">
+        <div class="container">
+          <div class="section-head"><div><div class="eyebrow">How it works</div><h2>See the whole field. Act on the right part.</h2></div><p>We start with how the business actually works, evaluate opportunities across value and feasibility, and turn the strongest candidate into an executable first-use-case specification.</p></div>
+          <div class="blueprint-flow">
+            <article class="flow-step"><span class="n">01</span><h3>Listen across the system</h3><p>Strategy, roles, workflows, tools, pain points, decisions, customers, and constraints.</p></article>
+            <article class="flow-step"><span class="n">02</span><h3>Map the work</h3><p>Where time, judgment, context, coordination, and customer value are created or lost.</p></article>
+            <article class="flow-step"><span class="n">03</span><h3>Surface opportunities</h3><p>A wide field of possible workflow, decision, knowledge, and experience changes.</p></article>
+            <article class="flow-step"><span class="n">04</span><h3>Rank the portfolio</h3><p>Value, time-to-impact, readiness, effort, risk, governance, and adoption burden.</p></article>
+            <article class="flow-step"><span class="n">05</span><h3>Specify the first move</h3><p>Owner, scope, sequence, measures, controls, and what must be true to proceed.</p></article>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container portfolio-shell">
+          <article class="matrix-card">
+            <div class="matrix-head"><h2>Opportunity portfolio</h2><div class="sample-label"><span>Illustrative</span><i>•</i><span class="nowrap">Not client data</span></div></div>
+            <div class="matrix-grid" aria-label="Illustrative value and effort matrix"><span class="axis-y">Business value</span><span class="axis-x">Implementation effort →</span><span class="bubble b1">Decision<br>briefs</span><span class="bubble b2">Email<br>voice</span><span class="bubble b3">Agent<br>workflow</span><span class="bubble b4">Meeting<br>capture</span></div>
+            <div class="matrix-note">Bubble size represents adoption surface. Position reflects relative value and implementation effort. Real portfolio roles also account for readiness, governance, risk, and time-to-impact.</div>
+          </article>
+          <article class="score-card">
+            <div class="eyebrow">The ranking logic</div><h2>One score is never enough.</h2>
+            <div class="score-list"><div class="score-row"><span class="n">01</span><strong>Business value</strong><span>What changes?</span></div><div class="score-row"><span class="n">02</span><strong>Time-to-impact</strong><span>How soon?</span></div><div class="score-row"><span class="n">03</span><strong>Implementation effort</strong><span>How hard?</span></div><div class="score-row"><span class="n">04</span><strong>Data &amp; tool readiness</strong><span>Can it start?</span></div><div class="score-row"><span class="n">05</span><strong>Risk &amp; governance</strong><span>What must hold?</span></div><div class="score-row"><span class="n">06</span><strong>Adoption burden</strong><span>Will it stick?</span></div></div>
+          </article>
+        </div>
+      </section>
+      <section class="section section-white">
+        <div class="container"><div class="section-head"><div><div class="eyebrow">What leadership receives</div><h2>A Blueprint built for decisions.</h2></div><p>Enough depth to choose and sequence investment—without pretending every opportunity should become a project.</p></div><div class="deliverable-grid"><article class="deliverable"><span class="n">01</span><h3>Opportunity field</h3><p>A business-wide view of where AI may change workflows, decisions, knowledge, or customer value.</p></article><article class="deliverable"><span class="n">02</span><h3>Ranked portfolio</h3><p>A clear comparison of high-value, quick-win, strategic, experimental, and defer candidates.</p></article><article class="deliverable"><span class="n">03</span><h3>First-use-case spec</h3><p>The owner, scope, data, tools, controls, measures, and adoption conditions for the first move.</p></article><article class="deliverable"><span class="n">04</span><h3>Activation roadmap</h3><p>A practical sequence for 30, 60, and 90 days with dependencies and decision gates made visible.</p></article></div></div>
+      </section>
+      <section class="page-cta"><div class="container cta-inner"><div><h2>Start small. Design for scale.</h2><p>The first use case should be valuable enough to matter and bounded enough to learn from.</p></div><a class="btn" href="#organizations" data-route="organizations">Explore organization services</a></div></section>
+    </section>
+
+    <section class="view" id="view-aiq" role="tabpanel" data-view="aiq" hidden>
+      <header class="page-hero">
+        <div class="container page-hero-inner">
+          <div><div class="eyebrow">AIQ + Products / The Quoxient7 model</div><h1>The seven quotients of AI-enabled leadership.</h1></div>
+          <p>AIQ is not built on AI skills alone. It emerges from seven foundational capabilities across three dimensions: how you think, connect, and execute.</p>
+        </div>
+      </header>
+      <section class="section section-white">
+        <div class="container">
+          <div class="aiq-subnav" role="tablist" aria-label="AIQ sections">
+            <button class="aiq-subtab" type="button" role="tab" data-aiq-tab="framework" aria-controls="aiq-panel-framework" aria-selected="true">Explore the framework</button>
+            <button class="aiq-subtab" type="button" role="tab" data-aiq-tab="assessment" aria-controls="aiq-panel-assessment" aria-selected="false">Get your assessment</button>
+          </div>
+
+          <div class="aiq-panel" id="aiq-panel-framework" role="tabpanel" data-aiq-panel="framework">
+            <div class="section-head"><div><div class="eyebrow">Three dimensions. Seven quotients.</div><h2>Explore what each capability means.</h2></div><p>Select any quotient to see what it measures and how it shapes a person's ability to use AI as a strategic force multiplier.</p></div>
+            <div class="dimension-band">
+              <article class="dimension-card"><span>Think · IQ + SQ + DQ</span><h3>Process the signal.</h3><p>Analyze, see patterns and systems, and cut through noise to make sound decisions.</p></article>
+              <article class="dimension-card"><span>Connect · HQ + PQ</span><h3>Protect the human edge.</h3><p>Lead with genuine connection and clear purpose—the capabilities AI cannot replace.</p></article>
+              <article class="dimension-card"><span>Execute · AQ + VQ</span><h3>Turn potential into progress.</h3><p>Adapt as conditions change and maintain the momentum required to produce results.</p></article>
+            </div>
+            <div class="quotient-map" aria-label="The seven quotients">
+              <button class="quotient-button" type="button" data-quotient="iq" aria-pressed="true"><span class="q-top"><span class="q-code">IQ</span><span class="q-dimension">Think</span></span><strong>Intelligence Quotient</strong><small>The Analytical Foundation</small></button>
+              <button class="quotient-button" type="button" data-quotient="sq" aria-pressed="false"><span class="q-top"><span class="q-code">SQ</span><span class="q-dimension">Think</span></span><strong>Systems Quotient</strong><small>The Holistic Lens</small></button>
+              <button class="quotient-button" type="button" data-quotient="dq" aria-pressed="false"><span class="q-top"><span class="q-code">DQ</span><span class="q-dimension">Think</span></span><strong>Discernment Quotient</strong><small>The Noise Filter</small></button>
+              <button class="quotient-button" type="button" data-quotient="hq" aria-pressed="false"><span class="q-top"><span class="q-code">HQ</span><span class="q-dimension">Connect</span></span><strong>Human Quotient</strong><small>The Irreplaceable Edge</small></button>
+              <button class="quotient-button" type="button" data-quotient="pq" aria-pressed="false"><span class="q-top"><span class="q-code">PQ</span><span class="q-dimension">Connect</span></span><strong>Purpose Quotient</strong><small>The North Star</small></button>
+              <button class="quotient-button" type="button" data-quotient="aq" aria-pressed="false"><span class="q-top"><span class="q-code">AQ</span><span class="q-dimension">Execute</span></span><strong>Adaptability Quotient</strong><small>The Change Muscle</small></button>
+              <button class="quotient-button" type="button" data-quotient="vq" aria-pressed="false"><span class="q-top"><span class="q-code">VQ</span><span class="q-dimension">Execute</span></span><strong>Velocity Quotient</strong><small>The Speed Lever</small></button>
+            </div>
+            <article class="quotient-detail" aria-live="polite">
+              <div><div class="quotient-detail-code" data-quotient-code>IQ</div><span class="quotient-detail-dimension" data-quotient-dimension>Think · The Analytical Foundation</span></div>
+              <div><h3 data-quotient-name>Intelligence Quotient</h3><p data-quotient-description>Your capacity for logical reasoning, pattern recognition, and structured problem-solving.</p><div class="ai-connection"><strong>AI connection</strong><p data-quotient-connection>Understand AI's capabilities and limitations, structure problems clearly, and evaluate AI outputs critically rather than accepting them at face value.</p></div></div>
+            </article>
+          </div>
+
+          <div class="aiq-panel" id="aiq-panel-assessment" role="tabpanel" data-aiq-panel="assessment" hidden>
+            <div class="section-head"><div><div class="eyebrow">Get your assessment</div><h2>A compact diagnostic for a more useful conversation.</h2></div><p>AIQ makes an individual's current patterns visible so the next step can be grounded in their real work, judgment, and development priorities.</p></div>
+            <div class="aiq-overview">
+              <article class="aiq-assessment">
+                <span class="tag">Personal diagnostic</span>
+                <h2>Short AIQ Assessment</h2>
+                <div class="aiq-time">Approximately 20 minutes</div>
+                <p>Answer a focused set of questions about how you reason, communicate, adapt, execute, and engage with AI. The result gives you and Quoxient a shared baseline for identifying where applied support may create the most value.</p>
+                <ul><li>See current AI interaction patterns</li><li>Surface strengths and friction across seven quotients</li><li>Identify the areas worth discussing or applying</li><li>Create a useful input for an AI Strategy Session or Accelerator</li></ul>
+              </article>
+              <div class="assessment-steps">
+                <article class="assessment-step"><span class="n">01</span><div><h3>Complete the questionnaire.</h3><p>Spend approximately 20 minutes responding to the short assessment across the seven quotients.</p></div></article>
+                <article class="assessment-step"><span class="n">02</span><div><h3>Review your profile.</h3><p>See the relative patterns across Think, Connect, and Execute and identify where the most useful development questions sit.</p></div></article>
+                <article class="assessment-step"><span class="n">03</span><div><h3>Choose the next move.</h3><p>Use the result on its own or bring it into an AI Strategy Session or Accelerator to turn the insight into applied workflows and capability.</p></div></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <div class="section-head"><div><div class="eyebrow">How AIQ fits</div><h2>A starting signal—not the entire engagement.</h2></div><p>AIQ can sharpen the work without making every service about a score. The real value comes from applying what we learn to the decisions, workflows, communication, and responsibilities that matter.</p></div>
+          <div class="capability-strip">
+            <article><strong>Start with a shared baseline.</strong><span>Make current patterns and development questions visible before selecting tools or building workflows.</span></article>
+            <article><strong>Apply it to real work.</strong><span>Use the signal inside an AI Strategy Session, Accelerator, or another focused leadership engagement.</span></article>
+            <article><strong>Measure useful progress.</strong><span>Return to AIQ over time as one source of evidence—not as a substitute for performance or human judgment.</span></article>
+          </div>
+        </div>
+      </section>
+      <section class="page-cta"><div class="container cta-inner"><div><h2>Begin with the short assessment.</h2><p>Use AIQ to establish a starting point, then decide whether a deeper individual engagement would be valuable.</p></div><a class="btn" href="https://quoxient.vercel.app/contact">Request AIQ access</a></div></section>
+      <section class="section section-white">
+        <div class="container">
+          <div class="section-head"><div><div class="eyebrow">Other products / in application and development</div><h2>Intelligence systems built around real work.</h2></div><p>These products can support a broader Quoxient engagement or operate as focused applications. Each begins with a recurring problem and turns it into a reusable intelligence workflow.</p></div>
+          <div class="product-shelf">
+            <article class="product-card featured">
+              <div>
+                <div class="product-card-head"><span class="tag">Relationship intelligence</span><span class="product-status">Working product · applied prototype</span></div>
+                <h3>WorkLore</h3>
+                <p class="product-thesis">Turn the network you already have into a mandate-driven intelligence system.</p>
+              </div>
+              <div>
+                <p>WorkLore enriches fragmented relationship data and makes a known network queryable by meaning—not just titles or keywords. It helps identify the people who matter to a live mandate, including non-obvious connectors, and shows the evidence for why each person fits.</p>
+                <p style="margin-top:14px">It is not a CRM. WorkLore is being developed as an intelligence layer for mapping relationships, saving sourcing projects, building deeper profiles, preparing pre-call briefings, and turning post-call analysis into better follow-through as relationships evolve.</p>
+                <div class="product-capabilities"><span>Semantic network search</span><span>Career-history enrichment</span><span>Connector discovery</span><span>Profile intelligence</span><span>Pre- and post-call intelligence</span></div>
+                <a class="product-link" href="https://quoxient.vercel.app/contact">Want to learn more? Contact us →</a>
+              </div>
+            </article>
+            <article class="product-card">
+              <div class="product-card-head"><span class="tag">Conversation intelligence</span><span class="product-status">Field-used capability</span></div>
+              <h3>Sonar</h3>
+              <p class="product-thesis">Intelligence beneath the conversation.</p>
+              <p>Sonar turns meetings, conversations, interviews, and consumed media into evidence-grounded intelligence. It surfaces decisions, relationship and deal dynamics, operating patterns, blind spots, frameworks, risks, and next moves—anchoring findings to the source and distinguishing observation from inference.</p>
+              <div class="product-capabilities"><span>Meeting intelligence</span><span>Person intelligence</span><span>Media intelligence</span><span>Source-anchored findings</span></div>
+              <a class="product-link" href="https://quoxient.vercel.app/contact">Explore a Sonar application →</a>
+            </article>
+            <article class="product-card">
+              <div class="product-card-head"><span class="tag">Editorial intelligence</span><span class="product-status">Applied workflow system</span></div>
+              <h3>Pressroom</h3>
+              <p class="product-thesis">Turn recurring editorial work into a reusable intelligence workflow.</p>
+              <p>Pressroom helps teams transform ongoing research and source material into structured editorial intelligence and production workflows. AI agents can gather, score, draft, and verify while people retain control over meaning, voice, standards, and release.</p>
+              <div class="product-capabilities"><span>Research orchestration</span><span>Editorial scoring</span><span>Drafting workflows</span><span>Human release control</span></div>
+              <a class="product-link" href="https://quoxient.vercel.app/contact">Discuss a Pressroom workflow →</a>
+            </article>
+          </div>
+          <div class="product-note">These systems are at different stages of productization and may be applied independently or within a broader engagement. Contact Quoxient to discuss the problem, operating context, and most appropriate starting point.</div>
+        </div>
+      </section>
+    </section>
+
+    <section class="view" id="view-cases" role="tabpanel" data-view="cases" hidden>
+      <header class="page-hero">
+        <div class="container page-hero-inner">
+          <div><div class="eyebrow">Case studies / applied work</div><h1>Work that connects intelligence to a usable operating system.</h1></div>
+          <p>Our cases show the work, the thinking behind it, and the result that was demonstrated—with the evidence made clear.</p>
+        </div>
+      </header>
+      <section class="section section-white">
+        <div class="container case-grid">
+          <article class="case-card primary">
+            <div class="case-intro"><span class="tag">Media intelligence · applied work</span><h2>Turning a weekly editorial relay into a reusable intelligence workflow.</h2><p>For Tosin Taiwo's <em>Africa on Monday</em>, the team translated a distinctive editorial identity into a practical AI-assisted thumbnail and title system—while protecting the judgment that made the work his.</p></div>
+            <div class="case-beats">
+              <div class="case-beat"><h3>The friction</h3><p>A weekly four-round relay moved from script to AI to designer and back again, with Tosin carrying the creative direction and quality burden each time.</p></div>
+              <div class="case-beat"><h3>The intelligence</h3><p>The team analyzed all 24 published thumbnails and identified the repeatable visual thesis: a contradiction between two opposing economic or social realities.</p></div>
+              <div class="case-beat"><h3>What Quoxient delivered</h3><p>A six-page client kit and two prompts: one to generate and rank title-thumbnail concepts from a script, and one to render against the established visual language.</p></div>
+              <div class="case-beat"><h3>What was demonstrated</h3><p>Two new topics produced usable first-pass concepts while preserving clear boundaries: the system supported the designer and editorial judgment; it did not claim to replace either or predict performance.</p></div>
+            </div>
+          </article>
+          <article class="case-card half"><span class="tag">Enterprise decision intelligence</span><h2>Turning a complex advanced-manufacturing initiative into a decision-ready operating environment.</h2><p>Capital, customer, stakeholder, technology, and operating workstreams were moving simultaneously without one controlled view of what was current or decision-ready.</p><div class="mini-beats"><div class="mini-beat"><strong>What Quoxient did</strong><p>Reconciled the source and decision record, developed leadership briefs and audience-specific materials, structured the interdependent workstreams, and used AI for research, stakeholder profiling, meeting analysis, scenario development, and opportunity mapping.</p></div><div class="mini-beat"><strong>Result</strong><p>A controlled operating environment that gave leadership a current decision record, coordinated workstreams, and clearer gates for what could move internally or externally.</p></div></div></article>
+          <article class="case-card half"><span class="tag">Executive AI enablement</span><h2>Building an AI operating system around the leader who would use it.</h2><p>An experienced advisor needed more than isolated automations. Positioning, business development, relationships, research, communication, and recurring execution had to reinforce one another inside one usable environment.</p><div class="mini-beats"><div class="mini-beat"><strong>What Quoxient did</strong><p>Combined transcript intelligence, behavioral analysis, strategic synthesis, and personalized workflows for research, investment memos, counterparty briefs, content, and weekly decision-making.</p></div><div class="mini-beat"><strong>Result</strong><p>An approximately 90-file business and AI operating system organized around the leader's real cognition, constraints, relationships, and work—with tools selected so the capability could be operated independently.</p></div></div></article>
+        </div>
+      </section>
+      <section class="page-cta"><div class="container cta-inner"><div><h2>Your first case starts with the work.</h2><p>Show us how the workflow runs today. We will help identify the intelligence, judgment, and redesign it needs.</p></div><a class="btn" href="https://quoxient.vercel.app/contact">Discuss a use case</a></div></section>
+    </section>
+
+    <section class="view" id="view-about" role="tabpanel" data-view="about" hidden>
+      <header class="page-hero">
+        <div class="container page-hero-inner">
+          <div><div class="eyebrow">About Quoxient</div><h1>Business judgment, adoption, and architecture at one table.</h1></div>
+          <p>Quoxient exists because useful AI transformation is cross-functional by nature. It has to work commercially, operationally, behaviorally, and technically at the same time.</p>
+        </div>
+      </header>
+      <section class="section section-white">
+        <div class="container about-story">
+          <div><div class="eyebrow">Human-led. AI-enabled.</div><h2>We use AI the way we help clients use it: as an amplifying layer.</h2></div>
+          <div class="about-copy"><p>Quoxient starts with the business, the people, and the decisions. We use AI to hold more context, connect more signals, and test more pathways—then turn the strongest opportunities into workflows and systems people can actually use. Human judgment sets the direction; AI expands what the team can see and do.</p><div class="principles"><article class="principle"><strong>Human judgment leads.</strong><span>AI extends context and capability; people remain accountable for purpose, choices, and consequences.</span></article><article class="principle"><strong>Workflows create value.</strong><span>The unit of transformation is not the license. It is the work, decision, or experience that changes.</span></article><article class="principle"><strong>Capability should transfer.</strong><span>Clients should become more able to operate and improve the system—not more dependent on us.</span></article></div></div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container"><div class="section-head"><div><div class="eyebrow">The team</div><h2>Three lenses. One opportunity.</h2></div><p>Our combined experience spans executive operations, enterprise product and commercialization, and AI systems engineering and governance.</p></div>
+          <div class="team-grid">
+            <article class="profile">
+              <div class="profile-head"><div class="profile-initials">MH</div><h2>Maurice “Mo” Hickman</h2><div class="profile-title">Co-Founder · Systems &amp; Solutions Architect</div></div>
+              <div class="profile-body">
+                <p class="profile-bio">Maurice is a global operator, strategist, and systems architect whose career spans U.S. Army leadership, multinational environmental and management consulting, industrial project delivery across East Asia, and venture-backed startups and asset-heavy logistics across Africa. He has led in complex, volatile environments where strategy, people, capital, systems, and execution must work together.</p>
+                <p class="quoxient-role"><strong>At Quoxient</strong><br>Maurice connects commercial goals and organizational reality to AI-enabled execution—uncovering the governing constraint and turning ambiguity into practical decisions, workflows, and systems.</p>
+                <div class="expertise-columns"><div class="expertise-block"><h3>Professional expertise</h3><ul><li>Complex operations and cross-functional execution</li><li>Market entry, expansion, and organizational alignment</li><li>Systems diagnosis and stakeholder mapping</li><li>Founder, executive, and partnership advisory</li></ul></div><div class="expertise-block"><h3>Applied AI expertise</h3><ul><li>Research orchestration and evidence governance</li><li>Context engineering and reusable AI skills</li><li>Profile, relationship, and opportunity intelligence</li><li>Human-led decision systems and evaluation</li></ul></div></div>
+                <div class="profile-footer"><div class="profile-badges"><span>West Point</span><span>Duke MBA</span><span>U.S. Army</span><span>ERM</span><span>Venture-Backed Startups</span><span>Global Operations</span></div><a class="linkedin-link" href="https://www.linkedin.com/in/mauricehickman" target="_blank" rel="noopener noreferrer">View LinkedIn →</a></div>
+              </div>
+            </article>
+            <article class="profile">
+              <div class="profile-head"><div class="profile-initials">ZH</div><h2>Zain Haseeb</h2><div class="profile-title">Co-Founder · Enterprise AI Strategy &amp; Adoption</div></div>
+              <div class="profile-body">
+                <p class="profile-bio">Zain is an enterprise strategist, product marketer, and business builder whose career spans corporate strategy, entrepreneurship, and international general management. His work has covered future-product research, electric-vehicle portfolio planning, connected-vehicle commerce, B2B/B2G product marketing, and leading an industrial-services business in Dubai.</p>
+                <p class="quoxient-role"><strong>At Quoxient</strong><br>Zain connects AI capability to product judgment, commercial strategy, executive communication, and enterprise adoption. His Pressroom work demonstrates the model: agents gather, score, draft, and verify while humans retain control over meaning, standards, and release.</p>
+                <div class="expertise-columns"><div class="expertise-block"><h3>Professional expertise</h3><ul><li>Enterprise product and portfolio strategy</li><li>B2B/B2G go-to-market and enablement</li><li>Digital business and customer journeys</li><li>Entrepreneurship and international general management</li></ul></div><div class="expertise-block"><h3>Applied AI expertise</h3><ul><li>Enterprise AI adoption and Copilot workflows</li><li>Agentic workflow and operating-system design</li><li>Human-in-the-loop governance</li><li>AI enablement and executive communication</li></ul></div></div>
+                <div class="profile-footer"><div class="profile-badges"><span>General Motors</span><span>Duke MBA</span><span>Former Deloitte</span><span>International General Manager</span><span>Agency Founder</span></div><a class="linkedin-link" href="https://www.linkedin.com/in/zainhaseeb/" target="_blank" rel="noopener noreferrer">View LinkedIn →</a></div>
+              </div>
+            </article>
+            <article class="profile">
+              <div class="profile-head"><div class="profile-initials">ZM</div><h2>Zain Merchant</h2><div class="profile-title">Co-Founder · AI Systems Engineering &amp; Governance</div></div>
+              <div class="profile-body">
+                <p class="profile-bio">Zain is an AI and machine-learning systems engineer whose work spans enterprise AI governance, retrieval, knowledge graphs, agent infrastructure, and full-stack product development. At GreenSky, he helped design and operationalize company-wide AI governance, supported live AI pilots, accelerated vendor review, and delivered AI and Copilot training at enterprise scale.</p>
+                <p class="quoxient-role"><strong>At Quoxient</strong><br>Zain determines whether an opportunity can be built, governed, observed, and maintained—and builds the technical layer connecting scattered data to usable intelligence.</p>
+                <div class="expertise-columns"><div class="expertise-block"><h3>Professional expertise</h3><ul><li>Enterprise AI governance and lifecycle design</li><li>Business analytics and decision modeling</li><li>Technical product design and implementation</li><li>AI enablement in regulated environments</li></ul></div><div class="expertise-block"><h3>Technical expertise</h3><ul><li>Hybrid retrieval, reranking, and entity resolution</li><li>Knowledge graphs and AI memory</li><li>Agent orchestration, evaluation, and LLMOps</li><li>Python, TypeScript, SQL, APIs, and cloud deployment</li></ul></div></div>
+                <div class="profile-footer"><div class="profile-badges"><span>GreenSky</span><span>UGA MSBA</span><span>Enterprise AI Governance</span><span>Knowledge Graphs</span><span>Full-Stack AI</span></div><a class="linkedin-link" href="https://www.linkedin.com/in/z-ainmerchant/" target="_blank" rel="noopener noreferrer">View LinkedIn →</a></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section section-dark">
+        <div class="container"><div class="section-head"><div><div class="eyebrow" style="color:var(--cyan)">The Quoxient test</div><h2>Every opportunity must survive three questions.</h2></div><p>No one discipline gets to declare an AI initiative ready on its own.</p></div><div class="three-tests"><article class="test"><span class="n">01 · Value</span><h3>Should this exist?</h3><p>Does it create meaningful business or customer value under the organization's actual priorities and constraints?</p></article><article class="test"><span class="n">02 · Adoption</span><h3>Can people use and sustain it?</h3><p>Do leaders and teams understand the change, own the workflow, and have the conditions required for it to stick?</p></article><article class="test"><span class="n">03 · Architecture</span><h3>Can it be built responsibly?</h3><p>Is the system feasible, governable, maintainable, secure enough for its context, and worth its ongoing cost?</p></article></div></div>
+      </section>
+      <section class="page-cta"><div class="container cta-inner"><div><h2>Let's find the work worth changing.</h2><p>Start with the opportunity, the operating context, and what your business must become next.</p></div><a class="btn" href="https://quoxient.vercel.app/contact">Meet Quoxient</a></div></section>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row"><div class="footer-brand">Quoxient</div><div class="footer-links"><a href="#home" data-route="home">Home</a><a href="#individuals" data-route="individuals">Individuals</a><a href="#organizations" data-route="organizations">Organizations</a><a href="#blueprint" data-route="blueprint">Blueprint</a><a href="#aiq" data-route="aiq">AIQ + Products</a><a href="#cases" data-route="cases">Cases</a><a href="#about" data-route="about">About</a></div></div>
+  </footer>
+
+  <script>
+    (() => {
+      const routes = ["home", "individuals", "organizations", "blueprint", "aiq", "cases", "about"];
+      const routeLinks = [...document.querySelectorAll("[data-route]")];
+      const views = [...document.querySelectorAll("[data-view]")];
+      const aiqTabs = [...document.querySelectorAll("[data-aiq-tab]")];
+      const aiqPanels = [...document.querySelectorAll("[data-aiq-panel]")];
+      const quotientButtons = [...document.querySelectorAll("[data-quotient]")];
+      const quotientData = {
+        iq: { code: "IQ", dimension: "Think · The Analytical Foundation", name: "Intelligence Quotient", description: "Your capacity for logical reasoning, pattern recognition, and structured problem-solving.", connection: "Understand AI's capabilities and limitations, structure problems clearly, and evaluate AI outputs critically rather than accepting them at face value." },
+        sq: { code: "SQ", dimension: "Think · The Holistic Lens", name: "Systems Quotient", description: "Your ability to see relationships, interdependencies, feedback loops, and second-order effects across a whole system.", connection: "Recognize where AI belongs across a workflow—not just inside one task—and anticipate how changes affect people, decisions, tools, and downstream work." },
+        dq: { code: "DQ", dimension: "Think · The Noise Filter", name: "Discernment Quotient", description: "Your ability to judge relevance, quality, credibility, and what truly matters amid competing signals.", connection: "Separate useful capability from hype, choose the right tools and use cases, validate outputs, and know when AI should not be used." },
+        hq: { code: "HQ", dimension: "Connect · The Irreplaceable Edge", name: "Human Quotient", description: "Your capacity for empathy, trust, communication, relational judgment, and genuine human connection.", connection: "Preserve voice, context, accountability, and human understanding while AI extends the scale and speed of your work." },
+        pq: { code: "PQ", dimension: "Connect · The North Star", name: "Purpose Quotient", description: "Your ability to anchor choices and action in purpose, values, meaning, and the outcomes that deserve pursuit.", connection: "Direct AI toward work that matters, establish boundaries, and avoid optimizing activity that does not advance the real mission." },
+        aq: { code: "AQ", dimension: "Execute · The Change Muscle", name: "Adaptability Quotient", description: "Your capacity to learn, experiment, update your thinking, and respond productively as conditions change.", connection: "Keep pace with evolving AI capabilities, iterate from evidence, and change workflows without chasing every new tool or abandoning sound judgment." },
+        vq: { code: "VQ", dimension: "Execute · The Speed Lever", name: "Velocity Quotient", description: "Your ability to convert decisions into momentum and sustain the pace required to deliver meaningful results.", connection: "Use AI to compress cycle times, remove repeatable friction, and build faster execution without trading away quality, ownership, or judgment." }
+      };
+
+      function showAiqPanel(panel) {
+        aiqTabs.forEach(tab => tab.setAttribute("aria-selected", String(tab.dataset.aiqTab === panel)));
+        aiqPanels.forEach(item => { item.hidden = item.dataset.aiqPanel !== panel; });
+      }
+
+      function showQuotient(key) {
+        const item = quotientData[key];
+        if (!item) return;
+        quotientButtons.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.quotient === key)));
+        document.querySelector("[data-quotient-code]").textContent = item.code;
+        document.querySelector("[data-quotient-dimension]").textContent = item.dimension;
+        document.querySelector("[data-quotient-name]").textContent = item.name;
+        document.querySelector("[data-quotient-description]").textContent = item.description;
+        document.querySelector("[data-quotient-connection]").textContent = item.connection;
+      }
+
+      function normalizeRoute(hash) {
+        const route = (hash || "").replace(/^#/, "").toLowerCase();
+        return routes.includes(route) ? route : "home";
+      }
+
+      function showRoute(route, updateHistory = false) {
+        const next = normalizeRoute(route);
+        views.forEach(view => { view.hidden = view.dataset.view !== next; });
+        document.querySelectorAll(".site-tab").forEach(tab => {
+          const active = tab.dataset.route === next;
+          tab.setAttribute("aria-selected", String(active));
+          tab.tabIndex = active ? 0 : -1;
+        });
+        if (updateHistory && location.hash !== `#${next}`) history.pushState({ route: next }, "", `#${next}`);
+        document.title = next === "home" ? "Quoxient — Human-led. AI-enabled." : `${next === "cases" ? "Case Studies" : next === "aiq" ? "AIQ + Products" : next[0].toUpperCase() + next.slice(1)} | Quoxient`;
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+
+      routeLinks.forEach(link => link.addEventListener("click", event => {
+        event.preventDefault();
+        showRoute(link.dataset.route, true);
+      }));
+      aiqTabs.forEach(tab => tab.addEventListener("click", () => showAiqPanel(tab.dataset.aiqTab)));
+      quotientButtons.forEach(button => button.addEventListener("click", () => showQuotient(button.dataset.quotient)));
+      window.addEventListener("popstate", () => showRoute(location.hash));
+      window.addEventListener("hashchange", () => showRoute(location.hash));
+      document.querySelector(".site-tabs").addEventListener("keydown", event => {
+        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        const tabs = [...document.querySelectorAll(".site-tab")];
+        const current = Math.max(0, tabs.findIndex(tab => tab.getAttribute("aria-selected") === "true"));
+        const index = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (current + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[index].focus();
+        showRoute(tabs[index].dataset.route, true);
+      });
+      showRoute(location.hash);
+    })();
+  </script>
+</body>
+</html>
